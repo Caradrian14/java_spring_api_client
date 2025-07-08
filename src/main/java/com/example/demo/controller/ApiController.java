@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.model.Product;
+import com.example.demo.model.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +16,11 @@ public class ApiController {
     @PostMapping("/user")
     public String createUser(@RequestBody User user) {
         return "User created: " + user.getName() + ", " + user.getEmail();
+    }
+
+    @PostMapping("/product")
+    public String createProduct(@RequestBody Product product) {
+        return "Product created: " + product.getName() + ", with stock available: " + product.getAvailableStock();
     }
 
 }
