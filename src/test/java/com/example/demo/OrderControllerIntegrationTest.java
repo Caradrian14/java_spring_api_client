@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import com.example.demo.model.Product;
+import com.example.demo.model.Order;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,21 +12,18 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProductControllerIntegrationTest {
-
+public class OrderControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testCreateProduct() {
-        Product product = new Product();
-        product.setName("Integration Test Product");
-        product.setPrice(10.0f);
-        product.setAvailableStock(100);
-
-        ResponseEntity<Product> responseEntity = restTemplate.postForEntity("/products", product, Product.class);
+    public void testCreateOrder() {
+        Order order = new Order();
+        order.setStatus("available");
+        order.setReference("Integration Test Order");
+        ResponseEntity<Order> responseEntity = restTemplate.postForEntity("/orders", order, Order.class);
 
         assertEquals(200, responseEntity.getStatusCodeValue());
-        assertEquals("Integration Test Product", responseEntity.getBody().getName());
+        assertEquals("Integration Test Order", responseEntity.getBody().getReference());
     }
 }
